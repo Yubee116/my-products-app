@@ -2,7 +2,14 @@ import React from 'react'
 
 class Filters extends React.Component{
     render(){
-        return
+        return(
+            <form>
+                <input type='text' placeholder='Search'></input>
+                <p>
+                    <input type='checkbox'></input>Show InStock only
+                </p>
+            </form>
+        )
     }
 }
 
