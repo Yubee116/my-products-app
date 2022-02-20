@@ -9,6 +9,9 @@ class ProductTable extends React.Component{
         //console.log(productsAsArray)
 
         productsAsArray.forEach((product) => {
+            if ((!product.stocked && this.props.inStockOnly) || (product.name.toLowerCase().indexOf(this.props.filterText) === -1)){
+                return
+            }
             rows.push(
                 <ProductRow product={product} key={product.id} />
             )

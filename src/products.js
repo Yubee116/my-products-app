@@ -18,11 +18,32 @@ var PRODUCTS = {
 // console.log(array)
 
 class Products extends React.Component{
+    constructor(props){
+        super(props)
+        this.state= {
+            filterText: '',
+            inStockOnly: false,
+            products: PRODUCTS
+        }
+        this.handleFilter = this.handleFilter.bind(this)
+    }
+
+    handleFilter(filterInput){
+        this.setState(filterInput)
+    }
+
     render(){
         return(
             <div>
-                <Filters />
-                <ProductTable products={PRODUCTS}/>
+                <Filters 
+                    filterText={this.state.filterText}
+                    inStockOnly={this.state.inStockOnly}
+                    onFilter={this.handleFilter} 
+                />
+                <ProductTable 
+                    products={this.state.products}
+                    filterText={this.state.filterText}
+                    inStockOnly={this.state.inStockOnly}/>
                 <ProductForm />
             </div>
         )
