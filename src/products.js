@@ -12,10 +12,6 @@ var PRODUCTS = {
     '6': {id: 6, category: 'Furniture', price: '$100', stocked: true, name: 'Bean Bag'}
 } 
 
-// console.log(PRODUCTS)
-// let array = Object.keys(PRODUCTS).map((pid)=>PRODUCTS[pid])
-
-// console.log(array)
 
 class Products extends React.Component{
     constructor(props){
@@ -27,6 +23,16 @@ class Products extends React.Component{
         }
         this.handleFilter = this.handleFilter.bind(this)
         this.saveProduct = this.saveProduct.bind(this)
+        this.deleteProduct = this.deleteProduct.bind(this)
+    }
+
+    deleteProduct(productId){
+        this.setState((prevState)=>{
+            let products = prevState.products
+            delete products[productId]
+            return {products}
+        })
+
     }
 
     saveProduct(product){
@@ -54,7 +60,8 @@ class Products extends React.Component{
                 <ProductTable 
                     products={this.state.products}
                     filterText={this.state.filterText}
-                    inStockOnly={this.state.inStockOnly}/>
+                    inStockOnly={this.state.inStockOnly}
+                    deleteProduct={this.deleteProduct}/>
                 <ProductForm onSave={this.saveProduct}/>
             </div>
         )

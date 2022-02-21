@@ -20,7 +20,6 @@ class ProductForm extends React.Component{
 
         this.setState((prevState)=>{
             prevState.product[name] = value
-            console.log(prevState.product)
             return {product: prevState.product}
         })
     }
