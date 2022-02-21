@@ -12,18 +12,26 @@ var PRODUCTS = {
     '6': {id: 6, category: 'Furniture', price: '$100', stocked: true, name: 'Bean Bag'}
 } 
 
-
+const RESET_VALUES = {id: '', category: '', price: '', stocked: false, name: ''}
 class Products extends React.Component{
     constructor(props){
         super(props)
         this.state= {
             filterText: '',
             inStockOnly: false,
-            products: PRODUCTS
+            products: PRODUCTS,
+            formProduct: Object.assign({}, RESET_VALUES)
         }
         this.handleFilter = this.handleFilter.bind(this)
         this.saveProduct = this.saveProduct.bind(this)
         this.deleteProduct = this.deleteProduct.bind(this)
+        this.editProduct = this.editProduct.bind(this)
+    }
+    editProduct(product){
+        this.setState({
+            formProduct: Object.assign({}, product)
+        })
+
     }
 
     deleteProduct(productId){
@@ -36,7 +44,9 @@ class Products extends React.Component{
     }
 
     saveProduct(product){
-        product.id = new Date().getTime()
+        if (!product.id){
+            product.id = new Date().getTime()
+        }
         this.setState((prevState)=>{
             let products = prevState.products
             products[product.id] = product
@@ -61,8 +71,9 @@ class Products extends React.Component{
                     products={this.state.products}
                     filterText={this.state.filterText}
                     inStockOnly={this.state.inStockOnly}
-                    deleteProduct={this.deleteProduct}/>
-                <ProductForm onSave={this.saveProduct}/>
+                    deleteProduct={this.deleteProduct}
+                    editProduct={this.editProduct}/>
+                <ProductForm onSave={this.saveProduct} formProduct={this.state.formProduct}/>
             </div>
         )
     }

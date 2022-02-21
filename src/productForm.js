@@ -13,6 +13,13 @@ class ProductForm extends React.Component{
         }
     }
 
+    static getDerivedStateFromProps(props, state){
+        
+        return{
+            product: props.formProduct
+        }
+    }
+
     handleChange(e){
         const target = e.target
         const value = target.type === 'checkbox' ? target.checked : target.value
