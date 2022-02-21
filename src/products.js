@@ -26,6 +26,17 @@ class Products extends React.Component{
             products: PRODUCTS
         }
         this.handleFilter = this.handleFilter.bind(this)
+        this.saveProduct = this.saveProduct.bind(this)
+    }
+
+    saveProduct(product){
+        product.id = new Date().getTime()
+        this.setState((prevState)=>{
+            let products = prevState.products
+            products[product.id] = product
+            return {products}
+        })
+
     }
 
     handleFilter(filterInput){
@@ -44,7 +55,7 @@ class Products extends React.Component{
                     products={this.state.products}
                     filterText={this.state.filterText}
                     inStockOnly={this.state.inStockOnly}/>
-                <ProductForm />
+                <ProductForm onSave={this.saveProduct}/>
             </div>
         )
     }
